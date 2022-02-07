@@ -1,0 +1,76 @@
+- name: Configure webserver with jetty
+  hosts: all
+  become: True
+  tasks:
+    - name: Upgrade all apt packages
+      apt: upgrade=dist force_apt_get=yes
+
+    - name: install java
+      apt: name=default-jdk update_cache=yes #might wanna change to default-jdk when install manually
+    
+    # - name: install maven
+    #   apt: name=maven
+
+    - name: get maven
+      shell: wget https://fossies.org/linux/misc/apache-maven-3.8.4-bin.tar.gz -P /tmp
+    
+    - name: unpack maven tar
+      shell: sudo tar xf /tmp/apache-maven-*.tar.gz -C /opt
+    
+    - name: create symlink for maven
+      shell: sudo ln -s /opt/apache-maven-3.8.4 /opt/maven
+    
+    - name: create maven.sh file for variables
+      shell: touch /etc/profile.d/maven.sh
+    
+    - name: Insert "variables for maven" configuration block in /etc/ssh/maven.sh
+      blockinfile:
+        path: /etc/profile.d/maven.sh
+        block: |
+          export JAVA_HOME=/usr/lib/jvm/default-java
+          export M2_HOME=/opt/maven
+          export MAVEN_HOME=/opt/maven
+          export PATH=${M2_HOME}/bin:${PATH}
+    
+    - name: make script executable
+      shell: sudo chmod +x /etc/profile.d/maven.sh
+    
+    - name: load environment variables
+      shell: source /etc/profile.d/maven.sh executable=/bin/bash
+
+    - name: install python
+      apt: name=python
+
+    - name: Creates directory
+      file:
+        path: /home/robin/maven
+        state: directory
+
+    - copy:
+        src: ../maven/pom.xml
+        dest: /home/robin/maven
+    
+
+    # - name: Copying the Directory and its contents
+    #   become: true 
+    #   copy:
+    #     src: /opt/maven/conf
+    #     dest: /opt/maven/
+    #     owner: robin
+    #     group: robin        
+    #     mode: 777
+      
+    # - name: Copying the Directory and its contents
+    #   become: true 
+    #   copy:
+    #     src: ~/.m2/repository
+    #     dest: ~/.m2
+    #     owner: robin
+    #     group: robin        
+    #     mode: 777
+    
+    
+    - name: jetty deploy
+      shell: mvn jetty:run-war
+      args:
+        chdir: /home/robin/maven/

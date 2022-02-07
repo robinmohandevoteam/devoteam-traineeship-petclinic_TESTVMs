@@ -1,0 +1,5 @@
+ansible-playbook -i ./ansible_azure_rm.yml deploy-war-jetty.yml
+ansible-playbook -i ./ansible_azure_rm.yml installdocker.yml
+
+global settings /opt/maven/conf
+user settings 
