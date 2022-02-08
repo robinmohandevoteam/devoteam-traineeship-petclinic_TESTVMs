@@ -3,9 +3,9 @@
 terraform {
   backend "azurerm" {
     resource_group_name   = "pers-robin_mohan-rg"
-    storage_account_name  = "storageforrobin"
+    storage_account_name  = "storageforrobin2"
     container_name        = "tstate"
-    key                   = "6VA7Q~sEyVRjLsgvTBjFaXCBYRXKPb_vlXxaa"
+    key                   = "6BxcHR7+aAJd9EOHPcWs6KpGXYCEJ/lBU51OXPxNZz9ziie3GZAZKK+1nZHBEYlgI0SCmtWvX41vzfwmjwkUOw=="
 }
 }
 
