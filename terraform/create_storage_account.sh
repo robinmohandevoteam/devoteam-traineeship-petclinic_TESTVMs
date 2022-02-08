@@ -1,6 +1,6 @@
 #!/bin/bash
 RESOURCE_GROUP_NAME=pers-robin_mohan-rg
-STORAGE_ACCOUNT_NAME=storageforrobin2
+STORAGE_ACCOUNT_NAME=storageforrobin
 CONTAINER_NAME=tstate
 # Create resource group
 # az group create --name $RESOURCE_GROUP_NAME --location uksouth
