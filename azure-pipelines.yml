@@ -92,5 +92,5 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'ansible-playbook -i ./ansible_azure_rm.yml installdocker.yml'
+    script: 'ansible-playbook -i ./ansible_azure_rm.yml installdocker.yml -e ansible_python_interpreter=/opt/hostedtoolcache/Python/3.8.12/x64/bin/python3'
     workingDirectory: '$(System.DefaultWorkingDirectory)/ansible'
