@@ -33,6 +33,9 @@ steps:
   inputs:
     connection: robinmohandevoteam
     userRepository: 'robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs'
+    defaultVersionType: latest
+    version: latest
+    downloadPath: '$(System.ArtifactsDirectory)'
 
 - task: Bash@3
   inputs:
