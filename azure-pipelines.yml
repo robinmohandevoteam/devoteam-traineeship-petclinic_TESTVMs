@@ -29,6 +29,16 @@ steps:
     addToPath: true
     architecture: 'x64'
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'which python'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'which python3'
+
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'robinmohan-TFSPN'
