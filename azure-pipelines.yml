@@ -27,7 +27,7 @@ steps:
 #     defaultVersionType: 'latest'
 #     downloadPath: '$(System.ArtifactsDirectory)'
 
-steps:
+
 - task: DownloadGitHubRelease@0
   displayName: 'Download GitHub Release'
   inputs:
