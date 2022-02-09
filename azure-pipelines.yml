@@ -37,6 +37,7 @@ steps:
     provider: 'azurerm'
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    commandOptions: '-reconfigure'
     backendServiceArm: 'robinmohan-TFSPN'
     backendAzureRmResourceGroupName: 'pers-robin_mohan-rg'
     backendAzureRmStorageAccountName: 'storageforrobin'
@@ -53,4 +54,5 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
