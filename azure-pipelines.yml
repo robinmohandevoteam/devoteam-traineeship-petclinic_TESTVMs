@@ -87,5 +87,10 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
+    script: 'ls /opt/hostedtoolcache/Python/3.8.12/x64/bin'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
     script: 'ansible-playbook -i ./ansible_azure_rm.yml installdocker.yml'
     workingDirectory: '$(System.DefaultWorkingDirectory)/ansible'
