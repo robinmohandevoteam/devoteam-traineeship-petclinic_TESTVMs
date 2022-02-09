@@ -14,23 +14,23 @@ steps:
 
 
 
-- task: DownloadGitHubRelease@0
-  displayName: 'Download GitHub Release'
-  inputs:
-    connection: robinmohandevoteam
-    userRepository: robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs
-    itemPattern: '**'
-    downloadPath: $(System.ArtifactsDirectory)
+# - task: DownloadGitHubRelease@0
+#   displayName: 'Download GitHub Release'
+#   inputs:
+#     connection: robinmohandevoteam
+#     userRepository: robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs
+#     itemPattern: '**'
+#     downloadPath: $(System.ArtifactsDirectory)
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'ls $(System.ArtifactsDirectory)'
+    script: 'ls ./terraform'
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'ls $(System.ArtifactsDirectory)/_robinmohandevoteam_devoteam-traineeship-petclinic_TESTVMs/terraform/'
+# - task: Bash@3
+#   inputs:
+#     targetType: 'inline'
+#     script: 'ls $(System.ArtifactsDirectory)/_robinmohandevoteam_devoteam-traineeship-petclinic_TESTVMs/terraform/'
 
 - task: TerraformTaskV2@2
   inputs:
