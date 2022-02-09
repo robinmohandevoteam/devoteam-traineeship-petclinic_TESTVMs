@@ -18,6 +18,12 @@ steps:
     sshPublicKey: '$(SSH_PUB_KEY)'
     sshKeySecureFile: robinmohandevoteamdevops
 
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.8'
+    addToPath: true
+    architecture: 'x64'
+
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'robinmohan-TFSPN'
