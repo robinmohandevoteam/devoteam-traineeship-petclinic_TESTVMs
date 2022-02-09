@@ -32,9 +32,8 @@ steps:
   displayName: 'Download GitHub Release'
   inputs:
     connection: robinmohandevoteam
-    userRepository: 'robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs'
+    userRepository: robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs
     defaultVersionType: latest
-    version: latest
     itemPattern: '**'
     downloadPath: $(System.ArtifactsDirectory)
 
