@@ -56,9 +56,15 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
   
-- task: Ansible@0
+# - task: Ansible@0
+#   inputs:
+#     ansibleInterface: 'agentMachine'
+#     playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/installdocker.yml'
+#     inventoriesAgentMachine: 'file'
+#     inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/ansible_azure_rm.yml'
+
+- task: Bash@3
   inputs:
-    ansibleInterface: 'agentMachine'
-    playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/installdocker.yml'
-    inventoriesAgentMachine: 'file'
-    inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/ansible_azure_rm.yml'
+    targetType: 'inline'
+    script: 'ansible-playbook -i ./ansible_azure_rm.yml installdocker.yml'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/ansible'
