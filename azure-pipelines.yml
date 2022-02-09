@@ -11,21 +11,7 @@ pool:
 
 steps:
 
-# - task: DownloadGitHubRelease@0
-#   displayName: 'Download GitHub Release'
-#   inputs:
-#     connection: robinmohandevoteam
-#     userRepository: 'robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs'
-#     defaultVersionType: latest
-#     version: latest
-#     downloadPath: '$(System.ArtifactsDirectory)' 
 
-# - task: DownloadGitHubRelease@0
-#   inputs:
-#     connection: 'robinmohandevoteam'
-#     userRepository: 'robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs'
-#     defaultVersionType: 'latest'
-#     downloadPath: '$(System.ArtifactsDirectory)'
 
 
 - task: DownloadGitHubRelease@0
@@ -39,7 +25,7 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'ls $(System.ArtifactsDirectory)/_robinmohandevoteam_devoteam-traineeship-petclinic_TESTVMs/terraform/'
+    script: 'ls $(System.ArtifactsDirectory)'
 
 - task: Bash@3
   inputs:
