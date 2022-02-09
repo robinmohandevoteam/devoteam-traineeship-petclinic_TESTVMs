@@ -33,7 +33,6 @@ steps:
   inputs:
     connection: robinmohandevoteam
     userRepository: robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs
-    defaultVersionType: latest
     itemPattern: '**'
     downloadPath: $(System.ArtifactsDirectory)
 
