@@ -27,6 +27,7 @@ steps:
 - script: |
    python -m pip install --upgrade pip
    pip install azure-cli
+   ansible-galaxy collection install azure.azcollection
   displayName: 'Install Python plugins (for AZ CLI)'
 
 - task: Bash@3
@@ -42,30 +43,30 @@ steps:
 #     scriptLocation: 'inlineScript'
 #     inlineScript: 'az login --service-principal -u d96286d0-548d-42bc-863d-d1764ab4b6ac -p 0yj7Q~lB90eRrKSMJR3DtPDWN2W-zdl54PKFi --tenant 16495547-537e-4dd0-8132-f2dc60e1a825'
 
-- task: TerraformTaskV2@2
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-    commandOptions: '-reconfigure'
-    backendServiceArm: 'robinmohan-TFSPN'
-    backendAzureRmResourceGroupName: 'pers-robin_mohan-rg'
-    backendAzureRmStorageAccountName: 'storageforrobin'
-    backendAzureRmContainerName: 'tstate'
-    backendAzureRmKey: 'fWu4MDKgnyEOOE+xYzrd+zTHzKq0dsMNdDfKSJ6VMvYlOQhVWc4NamjpXUicPO6AM84AGtjWhBoqYpKUlnb/tA=='
-- task: TerraformTaskV2@2
-  inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-    environmentServiceNameAzureRM: 'robinmohan-TFSPN'
+# - task: TerraformTaskV2@2
+#   inputs:
+#     provider: 'azurerm'
+#     command: 'init'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+#     commandOptions: '-reconfigure'
+#     backendServiceArm: 'robinmohan-TFSPN'
+#     backendAzureRmResourceGroupName: 'pers-robin_mohan-rg'
+#     backendAzureRmStorageAccountName: 'storageforrobin'
+#     backendAzureRmContainerName: 'tstate'
+#     backendAzureRmKey: 'fWu4MDKgnyEOOE+xYzrd+zTHzKq0dsMNdDfKSJ6VMvYlOQhVWc4NamjpXUicPO6AM84AGtjWhBoqYpKUlnb/tA=='
+# - task: TerraformTaskV2@2
+#   inputs:
+#     provider: 'azurerm'
+#     command: 'plan'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+#     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
 
-- task: TerraformTaskV2@2
-  inputs:
-    provider: 'azurerm'
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-    environmentServiceNameAzureRM: 'robinmohan-TFSPN'
+# - task: TerraformTaskV2@2
+#   inputs:
+#     provider: 'azurerm'
+#     command: 'apply'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+#     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
   
 # - task: Ansible@0
 #   inputs:
@@ -84,13 +85,13 @@ steps:
     targetType: 'inline'
     script: 'python --version'
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'ls /opt/hostedtoolcache/Python/3.8/x64/bin/python3.8'
+# - task: Bash@3
+#   inputs:
+#     targetType: 'inline'
+#     script: 'ls /opt/hostedtoolcache/Python/3.8/x64/bin/python3.8'
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'ansible-playbook -i ./ansible_azure_rm.yml installdocker.yml -e ansible_python_interpreter=/opt/hostedtoolcache/Python/3.8/x64/bin/python3.8'
+    script: 'ansible-playbook -i ./ansible_azure_rm.yml installdocker.yml -e ansible_python_interpreter=python3.8'
     workingDirectory: '$(System.DefaultWorkingDirectory)/ansible'
