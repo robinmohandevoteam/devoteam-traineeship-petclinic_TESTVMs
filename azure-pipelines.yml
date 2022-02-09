@@ -40,6 +40,6 @@ steps:
 - task: Ansible@0
   inputs:
     ansibleInterface: 'agentMachine'
-    playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible'
+    playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/installdocker.yml'
     inventoriesAgentMachine: 'file'
     inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/ansible_azure_rm.yml'
