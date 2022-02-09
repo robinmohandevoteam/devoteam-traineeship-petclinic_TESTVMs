@@ -36,8 +36,21 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     backendServiceArm: 'robinmohan-TFSPN'
     backendAzureRmResourceGroupName: 'pers-robin_mohan-rg'
     backendAzureRmStorageAccountName: 'storageforrobin'
     backendAzureRmContainerName: 'tstate'
     backendAzureRmKey: 'fWu4MDKgnyEOOE+xYzrd+zTHzKq0dsMNdDfKSJ6VMvYlOQhVWc4NamjpXUicPO6AM84AGtjWhBoqYpKUlnb/tA=='
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    environmentServiceNameAzureRM: 'robinmohan-TFSPN'
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    environmentServiceNameAzureRM: 'robinmohan-TFSPN'
