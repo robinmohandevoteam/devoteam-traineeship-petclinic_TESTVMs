@@ -11,11 +11,6 @@ pool:
 
 steps:
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'ansible --version'
-
 - task: InstallSSHKey@0
   displayName: 'Install an SSH key'
   inputs:
@@ -77,6 +72,16 @@ steps:
 #     playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/installdocker.yml'
 #     inventoriesAgentMachine: 'file'
 #     inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/ansible_azure_rm.yml'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'ansible --version'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'python --version'
 
 - task: Bash@3
   inputs:
