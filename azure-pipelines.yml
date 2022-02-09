@@ -11,14 +11,21 @@ pool:
 
 steps:
 
+# - task: DownloadGitHubRelease@0
+#   displayName: 'Download GitHub Release'
+#   inputs:
+#     connection: robinmohandevoteam
+#     userRepository: 'robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs'
+#     defaultVersionType: latest
+#     version: latest
+#     downloadPath: '$(System.ArtifactsDirectory)' 
+
 - task: DownloadGitHubRelease@0
-  displayName: 'Download GitHub Release'
   inputs:
-    connection: robinmohandevoteam
+    connection: 'robinmohandevoteam'
     userRepository: 'robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs'
-    defaultVersionType: latest
-    version: latest
-    downloadPath: '$(System.ArtifactsDirectory)' 
+    defaultVersionType: 'latest'
+    downloadPath: '$(System.ArtifactsDirectory)'
 
 - task: Bash@3
   inputs:
