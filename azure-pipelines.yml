@@ -12,26 +12,6 @@ pool:
 steps:
 
 
-
-
-# - task: DownloadGitHubRelease@0
-#   displayName: 'Download GitHub Release'
-#   inputs:
-#     connection: robinmohandevoteam
-#     userRepository: robinmohandevoteam/devoteam-traineeship-petclinic_TESTVMs
-#     itemPattern: '**'
-#     downloadPath: $(System.ArtifactsDirectory)
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'ls ./terraform'
-
-# - task: Bash@3
-#   inputs:
-#     targetType: 'inline'
-#     script: 'ls $(System.ArtifactsDirectory)/_robinmohandevoteam_devoteam-traineeship-petclinic_TESTVMs/terraform/'
-
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
@@ -56,3 +36,10 @@ steps:
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
+  
+- task: Ansible@0
+  inputs:
+    ansibleInterface: 'agentMachine'
+    playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible'
+    inventoriesAgentMachine: 'file'
+    inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/ansible_azure_rm.yml'
