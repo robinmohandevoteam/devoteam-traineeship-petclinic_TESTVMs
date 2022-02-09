@@ -21,7 +21,7 @@ steps:
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'robinmohan-TFSPN'
-    scriptType: 'ps'
+    scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: 'az login --service-principal -u d96286d0-548d-42bc-863d-d1764ab4b6ac -p 0yj7Q~lB90eRrKSMJR3DtPDWN2W-zdl54PKFi --tenant 16495547-537e-4dd0-8132-f2dc60e1a825'
 
