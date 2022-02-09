@@ -1,11 +1,11 @@
-vars:
-  ansible_python_interpreter: /usr/bin/python3.8
+# vars:
+#   ansible_python_interpreter: /usr/bin/python3.8
 
 plugin: azure.azcollection.azure_rm
 cloud_environment: AzureCloud
 include_vm_resource_groups:
   - pers-robin_mohan-rg
-auth_source: cli
+auth_source: auto
 ad_user: testadmin
 keyed_groups:
   - prefix: tag
