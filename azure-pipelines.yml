@@ -11,6 +11,13 @@ pool:
 
 steps:
 
+- task: InstallSSHKey@0
+  displayName: 'Install an SSH key'
+  inputs:
+    knownHostsEntry: default
+    sshPublicKey: '$(SSH_PUB_KEY)'
+    sshKeySecureFile: robinmohandevoteamdevops
+
 
 - task: TerraformTaskV2@2
   inputs:
