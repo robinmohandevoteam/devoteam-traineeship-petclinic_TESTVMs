@@ -6,7 +6,7 @@ cloud_environment: AzureCloud
 include_vm_resource_groups:
   - pers-robin_mohan-rg
 auth_source: auto
-ad_user: testadmin
+ad_user: robin
 keyed_groups:
   - prefix: tag
     key: tags
