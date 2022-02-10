@@ -2,7 +2,7 @@ plugin: azure.azcollection.azure_rm
 cloud_environment: AzureCloud
 include_vm_resource_groups:
   - pers-robin_mohan-rg
-auth_source: cli
+auth_source: env
 ad_user: robin
 keyed_groups:
   - prefix: tag
