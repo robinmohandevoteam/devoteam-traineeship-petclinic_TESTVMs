@@ -29,27 +29,6 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'ls ~/.ssh'
-  
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'cat ~/.ssh/known_hosts'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'sudo rm ~/.ssh/known_hosts'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'ls ~/.ssh'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
     script: 'export ANSIBLE_HOST_KEY_CHECKING=False'
 
 
@@ -122,15 +101,15 @@ steps:
    which python
   displayName: 'Install Python plugins (for AZ CLI)'
 
-- script: ansible -i ./ansible/ansible_azure_rm.yml all -m ping
-  env:
-    AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
-    AZURE_SECRET: $(ARM_CLIENT_SECRET)
-    AZURE_TENANT: $(ARM_TENANT_ID)
-    AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
-  displayName: 'PINGGGGG'
+# - script: ansible -i ./ansible/ansible_azure_rm.yml all -m ping
+#   env:
+#     AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
+#     AZURE_SECRET: $(ARM_CLIENT_SECRET)
+#     AZURE_TENANT: $(ARM_TENANT_ID)
+#     AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+#   displayName: 'PINGGGGG'
 
-- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ANSIBLE_HOST_KEY_CHECKING=False
+- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ANSIBLE_HOST_KEY_CHECKING=False --ssh-extra-args='-o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null  -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p user@host.com"'
 
   displayName: 'Run Ansible Playbook'
   env:
