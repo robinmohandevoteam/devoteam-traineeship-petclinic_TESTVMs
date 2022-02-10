@@ -11,12 +11,6 @@ pool:
 
 steps:
 
-# - task: Bash@3
-#   inputs:
-#     targetType: 'inline'
-#     script: |
-#       sudo adduser robin
-#       sudo su robin
 
 - task: Bash@3
   inputs:
@@ -31,6 +25,22 @@ steps:
     sshPublicKey: '$(SSH_PUB_KEY)'
     sshKeySecureFile: robinmohandevoteamdevops
 
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'ls ~/.ssh'
+  
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'cat ~/.ssh/known_hosts'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'sudo rm ~/.ssh/known_hosts'
 
 - task: Bash@3
   inputs:
