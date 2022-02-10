@@ -120,7 +120,7 @@ resource "azurerm_virtual_machine" "main" {
     disable_password_authentication = true
 
     ssh_keys {
-      path     = "/home/robin/.ssh/authorized_keys"
+      path     = "/home/vsts/.ssh/authorized_keys"
       key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDeQjMzPRzsXEvRPIlb6FWwJQuZmJhGRPxMTpS0A7qW+cN8097tftBZNXCnEkh6pACxJPjGxUaDxnuqUCtN92M3TtxgYWq78wCQEDOlTMleE38AMch/PTfabFeHQADrbSg+esNWjMdJd8Vn6x6jSY84dig3R3muDZc9a4Jvl1UO7T2PvrGjwjfpgWi0loR24sUowGCt1mtuIvOEpT4YNeYBvQXaL/8uyRlVn4fEzazngA5G45hBV8zu10P+5CJZu5gxId1TmWWp4pfoYmY0dqAnV9GZcWFsETttB4S2atDL/4AQ4RiPKekrfiptG5F6Wdj+upaarReeYaYp1vpnLpl2HOytcdRwKI2zHAvTAFsD/yS2tch2pp31ZhnqNpTgguB8fD4pEilf6hAqmhe4Pb47yTQXf2HAwGcnJ6NksLA/uUPC3ftslyjuffI280PhsRmPYSaMIj0JfW9lVy2ol86B8buK3q12SVnfu+HMkXeYiKmgbSYu44Y61st7mugesxr8i1S7lXJ6H04NSYOxK/XYUlQS8sRErU68kU9uLQZAZJ6QL+zdHqdX5DId3F7dVvbOnCMUtXzNfQc6FYB1xpgzPf+ELvcRmstmRkfLWAekIW1IN6a5VL8NWpJOHq6EiDqEqHrKxxIwgXljT1P8TVDH3d3U5KcQ5bnvTrKNwtYKzw== robin.mohan@devoteam.com"
     }
 
