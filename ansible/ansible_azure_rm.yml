@@ -1,5 +1,5 @@
 vars:
-  ansible_python_interpreter=/usr/bin/python3
+  ansible_python_interpreter=python3.9
 
 plugin: azure.azcollection.azure_rm
 cloud_environment: AzureCloud
