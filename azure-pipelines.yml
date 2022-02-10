@@ -18,30 +18,44 @@ steps:
     sshPublicKey: '$(SSH_PUB_KEY)'
     sshKeySecureFile: robinmohandevoteamdevops
 
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.8'
-    addToPath: true
-    architecture: 'x64'
 
-- script: |
-   python -m pip install --upgrade pip
-   pip install azure-cli
-   ansible-galaxy collection install azure.azcollection
-  displayName: 'Install Python plugins (for AZ CLI)'
+- task: UsePythonVersion@0
+  displayName: 'Install Python'
+  inputs:
+    versionSpec: '3.6'
 
 - task: Bash@3
-  displayName: AZ login
+  displayName: variables
   inputs:
     targetType: 'inline'
-    script: 'az login --service-principal -u d96286d0-548d-42bc-863d-d1764ab4b6ac -p 0yj7Q~lB90eRrKSMJR3DtPDWN2W-zdl54PKFi --tenant 16495547-537e-4dd0-8132-f2dc60e1a825'
+    script: |
+      echo $(ARM_CLIENT_ID)
 
 # - task: AzureCLI@2
+#   displayName: 'Azure CLI'
 #   inputs:
-#     azureSubscription: 'robinmohan-TFSPN'
+#     azureSubscription: '$(SUBSCRIPTION_NAME)'
+#     addSpnToEnvironment: true
 #     scriptType: 'bash'
 #     scriptLocation: 'inlineScript'
-#     inlineScript: 'az login --service-principal -u d96286d0-548d-42bc-863d-d1764ab4b6ac -p 0yj7Q~lB90eRrKSMJR3DtPDWN2W-zdl54PKFi --tenant 16495547-537e-4dd0-8132-f2dc60e1a825'
+#     inlineScript: |
+#       echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID]$(az account show --query="id" -o tsv)"
+#       echo "##vso[task.setvariable variable=ARM_CLIENT_ID]${servicePrincipalId}"
+#       echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET]${servicePrincipalKey}"
+#       echo "##vso[task.setvariable variable=ARM_TENANT_ID]${tenantId}"      
+
+- script: pip install ansible[azure]
+  displayName: 'Install Ansible and the Azure modules'
+
+- script: ansible-playbook -i ./ansible/ansible_azure_rm/yml ./ansible/installdocker.yml
+  displayName: 'Run Ansible Playbook'
+  env:
+    AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
+    AZURE_SECRET: $(ARM_CLIENT_SECRET)
+    AZURE_TENANT: $(ARM_TENANT_ID)
+    AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+
+
 
 # - task: TerraformTaskV2@2
 #   inputs:
@@ -67,31 +81,3 @@ steps:
 #     command: 'apply'
 #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
 #     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
-  
-# - task: Ansible@0
-#   inputs:
-#     ansibleInterface: 'agentMachine'
-#     playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/installdocker.yml'
-#     inventoriesAgentMachine: 'file'
-#     inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/ansible_azure_rm.yml'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'ansible --version'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'python --version'
-
-# - task: Bash@3
-#   inputs:
-#     targetType: 'inline'
-#     script: 'ls /opt/hostedtoolcache/Python/3.8/x64/bin/python3.8'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'ansible-playbook -i ./ansible_azure_rm.yml installdocker.yml -e ansible_python_interpreter=python3.8'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/ansible'
