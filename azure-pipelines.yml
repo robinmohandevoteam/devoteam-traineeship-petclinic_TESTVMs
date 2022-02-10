@@ -22,7 +22,7 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'ssh 137.135.86.221'
+    script: 'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null 137.135.86.22'
 
 
 - task: UsePythonVersion@0
