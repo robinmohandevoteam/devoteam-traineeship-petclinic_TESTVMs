@@ -47,6 +47,11 @@ steps:
 - script: pip install ansible[azure]
   displayName: 'Install Ansible and the Azure modules'
 
+- script: |
+   python -m pip install --upgrade pip
+   ansible-galaxy collection install azure.azcollection
+  displayName: 'Install Python plugins (for AZ CLI)'
+
 - script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml
   displayName: 'Run Ansible Playbook'
   env:
