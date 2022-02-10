@@ -32,6 +32,31 @@ steps:
     script: |
       echo $(ARM_CLIENT_ID)
 
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    commandOptions: '-reconfigure'
+    backendServiceArm: 'robinmohan-TFSPN'
+    backendAzureRmResourceGroupName: 'pers-robin_mohan-rg'
+    backendAzureRmStorageAccountName: 'storageforrobin'
+    backendAzureRmContainerName: 'tstate'
+    backendAzureRmKey: 'fWu4MDKgnyEOOE+xYzrd+zTHzKq0dsMNdDfKSJ6VMvYlOQhVWc4NamjpXUicPO6AM84AGtjWhBoqYpKUlnb/tA=='
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    environmentServiceNameAzureRM: 'robinmohan-TFSPN'
+
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    environmentServiceNameAzureRM: 'robinmohan-TFSPN'
+
 # - task: AzureCLI@2
 #   displayName: 'Azure CLI'
 #   inputs:
@@ -70,30 +95,3 @@ steps:
     AZURE_SECRET: $(ARM_CLIENT_SECRET)
     AZURE_TENANT: $(ARM_TENANT_ID)
     AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
-
-
-
-# - task: TerraformTaskV2@2
-#   inputs:
-#     provider: 'azurerm'
-#     command: 'init'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-#     commandOptions: '-reconfigure'
-#     backendServiceArm: 'robinmohan-TFSPN'
-#     backendAzureRmResourceGroupName: 'pers-robin_mohan-rg'
-#     backendAzureRmStorageAccountName: 'storageforrobin'
-#     backendAzureRmContainerName: 'tstate'
-#     backendAzureRmKey: 'fWu4MDKgnyEOOE+xYzrd+zTHzKq0dsMNdDfKSJ6VMvYlOQhVWc4NamjpXUicPO6AM84AGtjWhBoqYpKUlnb/tA=='
-# - task: TerraformTaskV2@2
-#   inputs:
-#     provider: 'azurerm'
-#     command: 'plan'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-#     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
-
-# - task: TerraformTaskV2@2
-#   inputs:
-#     provider: 'azurerm'
-#     command: 'apply'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-#     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
