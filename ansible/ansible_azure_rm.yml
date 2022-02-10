@@ -1,3 +1,5 @@
+ansible_python_interpreter=/usr/bin/python3
+
 plugin: azure.azcollection.azure_rm
 cloud_environment: AzureCloud
 include_vm_resource_groups:

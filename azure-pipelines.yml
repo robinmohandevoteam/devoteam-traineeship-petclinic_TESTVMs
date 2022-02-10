@@ -53,7 +53,13 @@ steps:
    ansible-galaxy collection install azure.azcollection
   displayName: 'Install Python plugins (for AZ CLI)'
 
-- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ansible_python_interpreter=python3.9
+- script: |
+   python --version
+   ansible --version
+   which python
+  displayName: 'Install Python plugins (for AZ CLI)'
+
+- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ansible_python_interpreter=python3
   displayName: 'Run Ansible Playbook'
   env:
     AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
