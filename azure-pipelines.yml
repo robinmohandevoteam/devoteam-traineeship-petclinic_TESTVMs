@@ -19,10 +19,10 @@ steps:
     sshKeySecureFile: robinmohandevoteamdevops
 
 
-# - task: Bash@3
-#   inputs:
-#     targetType: 'inline'
-#     script: 'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null 137.135.86.22'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'ls ~/.ssh'
 
 - task: Bash@3
   inputs:
