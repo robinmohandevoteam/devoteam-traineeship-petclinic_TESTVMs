@@ -18,6 +18,11 @@ steps:
       sudo adduser robin
       sudo su robin
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: whoami
+
 
 - task: InstallSSHKey@0
   displayName: 'Install an SSH key'
