@@ -22,6 +22,7 @@ steps:
 - task: UsePythonVersion@0
   displayName: 'Install Python'
   inputs:
+    addToPath: true 
     versionSpec: '3.9'
 
 - task: Bash@3
@@ -52,7 +53,7 @@ steps:
    ansible-galaxy collection install azure.azcollection
   displayName: 'Install Python plugins (for AZ CLI)'
 
-- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml
+- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ansible_python_interpreter=python3.9
   displayName: 'Run Ansible Playbook'
   env:
     AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
