@@ -47,7 +47,7 @@ steps:
 - script: pip install ansible[azure]
   displayName: 'Install Ansible and the Azure modules'
 
-- script: ansible-playbook -i ./ansible/ansible_azure_rm/yml ./ansible/installdocker.yml
+- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml
   displayName: 'Run Ansible Playbook'
   env:
     AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
