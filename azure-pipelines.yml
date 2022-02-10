@@ -109,7 +109,7 @@ steps:
 #     AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
 #   displayName: 'PINGGGGG'
 
-- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ANSIBLE_HOST_KEY_CHECKING=False --ssh-extra-args='-o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null  -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p user@host.com"'
+- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ANSIBLE_HOST_KEY_CHECKING=False --ssh-extra-args='-o StrictHostKeyChecking=no'
 
   displayName: 'Run Ansible Playbook'
   env:
