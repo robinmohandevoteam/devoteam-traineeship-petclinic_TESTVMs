@@ -19,10 +19,15 @@ steps:
     sshKeySecureFile: robinmohandevoteamdevops
 
 
+# - task: Bash@3
+#   inputs:
+#     targetType: 'inline'
+#     script: 'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null 137.135.86.22'
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null 137.135.86.22'
+    script: 'export ANSIBLE_HOST_KEY_CHECKING=False'
 
 
 - task: UsePythonVersion@0
@@ -94,7 +99,7 @@ steps:
    which python
   displayName: 'Install Python plugins (for AZ CLI)'
 
-- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e host_key_checking=False
+- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ANSIBLE_HOST_KEY_CHECKING=False
 
   displayName: 'Run Ansible Playbook'
   env:
