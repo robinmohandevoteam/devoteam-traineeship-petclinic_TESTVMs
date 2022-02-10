@@ -88,7 +88,8 @@ steps:
    which python
   displayName: 'Install Python plugins (for AZ CLI)'
 
-- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ansible_python_interpreter=python3
+- script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ansible_python_interpreter=python3 host_key_checking=False
+
   displayName: 'Run Ansible Playbook'
   env:
     AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
