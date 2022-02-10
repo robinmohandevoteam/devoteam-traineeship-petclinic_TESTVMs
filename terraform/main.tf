@@ -113,8 +113,8 @@ resource "azurerm_virtual_machine" "main" {
   }
   os_profile {
     computer_name  = "hostname"
-    admin_username = "robin"
-    admin_password = "nibor"
+    admin_username = "vsts"
+    admin_password = "password123"
   }
   os_profile_linux_config {
     disable_password_authentication = true
