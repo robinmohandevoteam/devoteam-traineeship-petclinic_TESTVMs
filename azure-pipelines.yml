@@ -99,8 +99,12 @@ steps:
    which python
   displayName: 'Install Python plugins (for AZ CLI)'
 
-- script: |
-    ansible -i ./ansible/ansible_azure_rm.yml all -m ping
+- script: ansible -i ./ansible/ansible_azure_rm.yml all -m ping
+  env:
+    AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
+    AZURE_SECRET: $(ARM_CLIENT_SECRET)
+    AZURE_TENANT: $(ARM_TENANT_ID)
+    AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
   displayName: 'PINGGGGG'
 
 - script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ANSIBLE_HOST_KEY_CHECKING=False
