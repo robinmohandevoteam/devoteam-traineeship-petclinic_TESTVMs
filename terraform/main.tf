@@ -58,7 +58,7 @@ resource "azurerm_network_security_group" "main" {
 
   security_rule {
     name                       = "SSH"
-    priority                   = 101
+    priority                   = 101  
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -130,12 +130,6 @@ resource "azurerm_virtual_machine" "main" {
   }
 }
 
-# resource "local_file" "hosts_cfg" {
-#   content = templatefile("./templates/hosts.tpl",
-#     {
-#       test_clients = azurerm_public_ip.main.*.ip_address
-#     }
-#   )
-#   filename = "../ansible/hosts.cfg"
-# }
-
+output "public_ip_address" {
+  value = "${azurerm_public_ip.main.*.ip_address}"
+}

@@ -11,13 +11,6 @@ pool:
 
 steps:
 
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: whoami
-
-
 - task: InstallSSHKey@0
   displayName: 'Install an SSH key'
   inputs:
@@ -28,6 +21,7 @@ steps:
 
 - task: Bash@3
   inputs:
+    displayName: 'Set Ansible host key checking to false (might not be necessary)'
     targetType: 'inline'
     script: 'export ANSIBLE_HOST_KEY_CHECKING=False'
 
@@ -38,14 +32,8 @@ steps:
     addToPath: true 
     versionSpec: '3.9'
 
-- task: Bash@3
-  displayName: variables
-  inputs:
-    targetType: 'inline'
-    script: |
-      echo $(ARM_CLIENT_ID)
-
 - task: TerraformTaskV2@2
+  displayName: 'Terraform Init'
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -57,6 +45,7 @@ steps:
     backendAzureRmContainerName: 'tstate'
     backendAzureRmKey: 'fWu4MDKgnyEOOE+xYzrd+zTHzKq0dsMNdDfKSJ6VMvYlOQhVWc4NamjpXUicPO6AM84AGtjWhBoqYpKUlnb/tA=='
 - task: TerraformTaskV2@2
+  displayName: 'Terraform Plan'
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -64,24 +53,13 @@ steps:
     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
 
 - task: TerraformTaskV2@2
+  displayName: 'Terraform Verify and Apply'
   inputs:
     provider: 'azurerm'
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
 
-# - task: AzureCLI@2
-#   displayName: 'Azure CLI'
-#   inputs:
-#     azureSubscription: '$(SUBSCRIPTION_NAME)'
-#     addSpnToEnvironment: true
-#     scriptType: 'bash'
-#     scriptLocation: 'inlineScript'
-#     inlineScript: |
-#       echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID]$(az account show --query="id" -o tsv)"
-#       echo "##vso[task.setvariable variable=ARM_CLIENT_ID]${servicePrincipalId}"
-#       echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET]${servicePrincipalKey}"
-#       echo "##vso[task.setvariable variable=ARM_TENANT_ID]${tenantId}"      
 
 - script: pip install ansible[azure]
   displayName: 'Install Ansible and the Azure modules'
@@ -93,21 +71,7 @@ steps:
    pip install azure-common.credentials
    wget -q https://raw.githubusercontent.com/ansible-collections/azure/dev/requirements-azure.txt; \
     pip3 install -r requirements-azure.txt; \
-  displayName: 'Install Python plugins (for AZ CLI)'
-
-- script: |
-   python --version
-   ansible --version
-   which python
-  displayName: 'Install Python plugins (for AZ CLI)'
-
-# - script: ansible -i ./ansible/ansible_azure_rm.yml all -m ping
-#   env:
-#     AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
-#     AZURE_SECRET: $(ARM_CLIENT_SECRET)
-#     AZURE_TENANT: $(ARM_TENANT_ID)
-#     AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
-#   displayName: 'PINGGGGG'
+  displayName: 'Install Ansible and Python plugins (Do not delete)'
 
 - script: ansible-playbook -i ./ansible/ansible_azure_rm.yml ./ansible/installdocker.yml -e ANSIBLE_HOST_KEY_CHECKING=False --ssh-extra-args='-o StrictHostKeyChecking=no'
 
@@ -116,4 +80,20 @@ steps:
     AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
     AZURE_SECRET: $(ARM_CLIENT_SECRET)
     AZURE_TENANT: $(ARM_TENANT_ID)
-    AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+    AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)  
+
+- script: PUBLIC_IP_ADDRESS=$(terraform output -json public_ip_address | jq -r '.[0]')
+  displayName: Make env variable for IP Address
+
+- script: echo $PUBLIC_IP_ADDRESS
+  displayName: echo variable
+
+- task: AlexandreGattiker.jmeter-tasks.custom-jmeter-installer-task.JMeterInstaller@0
+  displayName: 'Install JMeter 5.4.2'
+
+- script: wget https://github.com/robinmohandevoteam/devoteam-traineeship-petclinic/blob/master/src/test/jmeter/petclinic_test_plan.jmx
+  displayName: Download Jmeter test from other git repo
+
+- script: jmeter -n -t petclinic_test_plan.jmx -l log.jtl -Jhost=$PUBLIC_IP_ADDRESS
+  displayName: Run Jmeter test
+
