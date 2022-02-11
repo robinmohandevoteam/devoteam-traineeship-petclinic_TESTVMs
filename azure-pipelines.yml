@@ -89,7 +89,10 @@ steps:
   displayName: echo variable
 
 - task: AlexandreGattiker.jmeter-tasks.custom-jmeter-installer-task.JMeterInstaller@0
-  displayName: 'Install JMeter 5.4.2'
+  displayName: 'Install JMeter 5.4.3'
+  inputs:
+    jmeterVersion: 5.4.3
+
 
 - script: wget https://github.com/robinmohandevoteam/devoteam-traineeship-petclinic/blob/master/src/test/jmeter/petclinic_test_plan.jmx
   displayName: Download Jmeter test from other git repo
