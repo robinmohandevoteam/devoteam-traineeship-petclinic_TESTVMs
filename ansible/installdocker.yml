@@ -38,5 +38,8 @@
     - name: Make docker executable
       shell: sudo chmod 666 /var/run/docker.sock
     
+    - name: Docker stop all containers
+      shell: docker kill $(docker ps -q)
+    
     - name: Run jetty container 
       shell: docker run -d -p 80:8080 -p 443:8443 robinmohandevoteam/jettypetclinic:113
