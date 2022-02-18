@@ -31,7 +31,7 @@
 
     - name: Pull default Docker image
       docker_image:
-        name: "robinmohandevoteam/jettypetclinic:113"
+        name: "robinmohandevoteam/jettypetclinic:latest"
         source: pull
 
         
