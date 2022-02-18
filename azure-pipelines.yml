@@ -64,7 +64,6 @@ steps:
     provider: 'azurerm'
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-    commandOptions: '-lock=false'
     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
 
 
