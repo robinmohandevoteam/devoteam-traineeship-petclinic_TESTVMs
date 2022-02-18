@@ -31,7 +31,7 @@
 
     - name: Pull default Docker image
       docker_image:
-        name: "robinmohandevoteam/jettypetclinic:latest"
+        name: "robinmohandevoteam/jettypetclinic"
         source: pull
 
         
@@ -42,4 +42,4 @@
       shell: docker kill $(docker ps -q)
     
     - name: Run jetty container 
-      shell: docker run -d -p 80:8080 -p 443:8443 robinmohandevoteam/jettypetclinic:113
+      shell: docker run -d -p 80:8080 -p 443:8443 robinmohandevoteam/jettypetclinic
