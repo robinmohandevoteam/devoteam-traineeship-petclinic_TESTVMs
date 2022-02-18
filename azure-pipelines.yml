@@ -54,7 +54,7 @@ steps:
   displayName: 'Terraform Plan'
   inputs:
     provider: 'azurerm'
-    command: 'plan'
+    command: 'plan -lock=false'
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
 
@@ -62,7 +62,7 @@ steps:
   displayName: 'Terraform Verify and Apply'
   inputs:
     provider: 'azurerm'
-    command: 'apply'
+    command: 'apply -lock=false'
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     environmentServiceNameAzureRM: 'robinmohan-TFSPN'
 
