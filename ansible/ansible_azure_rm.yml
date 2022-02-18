@@ -6,7 +6,6 @@ plugin: azure.azcollection.azure_rm
 cloud_environment: AzureCloud
 include_vm_resource_groups:
   - pers-robin_mohan-rg
-# resource_name: featuretest-vm
 auth_source: env
 ad_user: robin
 keyed_groups:
