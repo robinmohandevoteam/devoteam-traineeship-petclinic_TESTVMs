@@ -11,4 +11,4 @@ auth_source: env
 ad_user: robin
 keyed_groups:
   - prefix: tag
-    key: testing
+    key: tags
