@@ -40,6 +40,8 @@
     
     - name: Docker stop all containers
       shell: docker kill $(docker ps -q)
+      ignore_errors: yes
+
     
     - name: Run jetty container 
       shell: docker run -d -p 80:8080 -p 443:8443 robinmohandevoteam/jettypetclinic:latest
